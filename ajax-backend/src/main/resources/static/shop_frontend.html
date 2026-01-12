@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>線上商城</h1>
+    <div>商品列表</div>
+    <div id="data_home">
+
+    </div>
+
+    <script>
+        fetch("http://localhost:8080/shop/products")
+        .then(response => response.json())
+        .then(data => {
+            let html = ""; // 最終輸出的 HTML 字串
+
+            // 對得到的資料作迴圈，拼接輸出的字串
+            for (let pName of data) {
+                html += `<li>${pName}</li>`
+            }
+            // 把 data_home 內的元素，替換成輸出字串
+            document.getElementById("data_home").innerHTML = html;
+        })
+    </script>
+
+</body>
+</html>
