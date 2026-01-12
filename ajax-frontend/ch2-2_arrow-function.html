@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>箭頭函式</title>
+</head>
+
+<body>
+    <script>
+        // 標準函式宣告
+        function add(a, b) {
+            return a + b;
+        }
+        const increment = function (a, b) {
+            return a + b;
+        }
+        console.log(add(1, 2));
+        console.log(increment(10, 15));
+        
+        // 標準箭頭函式
+        const decrement = (a, b) => {
+            console.log("(●'◡'●)");
+            return a - b;
+        }
+
+        // 簡化箭頭函示 (用在只有單純回傳值的時候)
+        const subtract = (a, b) => a - b;
+
+        console.log(decrement(100, 30));
+        console.log(subtract(60, 20));
+        
+        function doSomething(func) {
+            console.log("doSomething");
+            const num = Math.random();
+            if (num > 0.1) {
+                func();
+            }
+        }
+
+        doSomething( () => console.log("callback") );
+
+        // 應用
+        const members = [
+            { name: "Alice", age: 25 },
+            { name: "Bob", age: 30 },
+            { name: "Charlie", age: 35 },
+            { name: "David", age: 40 },
+        ]
+
+        members.forEach(m => {
+            console.log("=====");
+            console.log("name: " + m.name);
+            console.log("age: " + m.age);
+        })
+
+        const newMembers = members.filter(m => m.age < 26);
+
+        // members.filter(m => {
+        //     const bool = m.age < 26;
+        //     return bool;
+        // })
+
+        console.log(newMembers);
+
+        // 箭頭函示沒有自己的this(暫時用不到)
+        console.warn(this);
+
+        const person = {
+            name: "John",
+            age: 30,
+            whoAmI: function () {
+                console.log("我是誰", this);
+            },
+            whoAmIArrow: () => {
+                console.log("我是誰(使用箭頭函式)", this);
+            }
+        }
+
+        person.whoAmI();
+        person.whoAmIArrow();
+
+    </script>
+</body>
+
+</html>

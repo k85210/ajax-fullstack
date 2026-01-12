@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解構賦值</title>
+</head>
+
+<body>
+    <script>
+        const person = {
+            name: "Alice",
+            gender: "female",
+            age: 25,
+            address: {
+                city: "Taipei",
+                country: "Taiwan"
+            }
+        }
+        // 以前的解構方法
+        // const name = person.name;
+        // const gender = person.gender;
+        // const age = person.age;
+        // console.log(name, gender, age);
+        
+        // 現在
+        const { name, gender, age} = person
+        console.log(name, gender, age);
+
+        // 進階(比較少用)
+        const { address: { city, country } } = person;
+        console.log(city, country);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>變數練習</title>
+</head>
+
+<body>
+    <script>
+        // let 可重新賦值(常用在迴圈)
+        let name = "Alice";
+        name = "Bob";
+        console.log(name);
+
+        for (let i of [1, 2, 3, 4]) {
+            i += 100
+            console.log(i);
+        }
+
+        // const 標準賦值
+        const member = { name: "John", age: 30 };
+        member.name = "Jane";
+        console.log(member);  
+
+        // 會報錯的範例
+        const age = 25;
+        // age = 18;
+        // console.log(age);
+    </script>
+</body>
+
+</html>
