@@ -5,7 +5,7 @@
 
 // export { useMemberStore };
 
-// 上面可縮寫成
+// 可合併縮寫成如下
 export const useMemberStore = () => {
-    console.log("實作部分等到vue再看")
+    // 實作部分等到vue再看
 }
