@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        // 預設匯入(可自定義名稱)
+        import MY_PI from "./my_module/math.js";
+        console.log(MY_PI);
+
+        // 具名匯入
+        import { add, sub } from "./my_module/math.js";
+        console.log(add(1, 2));
+        console.log(sub(1, 2));
+
+        // 具名匯入(可自定義名稱)
+        import { getRamdonNumber as myRamd } from "./my_module/math.js";
+        console.log(myRamd());
+    </script>
+</body>
+</html>

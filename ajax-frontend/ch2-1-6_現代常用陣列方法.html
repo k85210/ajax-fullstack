@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // map: 逐一元素轉換
+        const members = [
+            { id: 1, name: "Alice", age: 25 },
+            { id: 2, name: "Bob", age: 30 },
+            { id: 3, name: "Charlie", age: 35 },
+            { id: 4, name: "David", age: 40}
+        ]
+        const ids = members.map(m => m.id);
+        console.log(ids);
+
+        const names = members.map(m => {
+            return m.name.toUpperCase();
+        });
+        console.log(names);
+
+        // reduce: 彙總、統計
+        const numbers = [1, 2, 3, 4, 5];
+        const total = numbers.reduce((sum, current) => sum + current, 0);
+        console.log(total);
+
+        // find: 搜尋第一個符合條件的元素
+        const persons = [
+            { name: "Alice", age: 25 },
+            { name: "Bob", age: 30 },
+            { name: "Charlie", age: 35 },
+            { name: "David", age: 40 }
+        ]
+        const target = persons.find(p => p.name.indexOf("o") == 1);
+        console.log(target);
+
+        // every: 檢查所有元素是否符合條件
+        const employee = [
+            { name: "Alice", check: true, salary: 50000 },
+            { name: "Bob", check: false, salary: 60000 },
+            { name: "Charlie", check: true, salary: 70000 },
+            { name: "David", check: false, salary: 80000 }
+        ]
+
+        const isAllCheck = employee.every(e => e.check);
+        console.log(isAllCheck);
+    </script>
+</body>
+</html>
