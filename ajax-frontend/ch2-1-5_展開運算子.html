@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const arr1 = [1, 2, 3, 4, 5];
+        const arr2 = [6, 7, 8, 9, 10];
+
+        // 快速合併陣列
+        const newArr = [...arr1, ...arr2];
+        console.log(arr1);
+        console.log(arr2);
+        console.log(newArr);
+
+        // 快速合併屬性(淺層複製，因為複製的是address的記憶體位址，所以改動newPerson.address.city時，person內的屬性也會被更動)
+        const person = { name: "Alice", age: 25, address: { city: "Taipei", country: "Taiwan" } };
+        const newPerson = { ...person, gender: "female", age: 32 };
+        console.log(person);
+        console.log(newPerson);
+
+        // 當成參數傳入(較少用)
+        const sum = (a, b, c) => {
+            return a + b + c;
+        }
+
+        const numbers = [1, 2, 3];
+        console.log(sum(...numbers));
+
+        // 深層複製(轉字串後再解析，就會建一個新物件)
+        const deepPerson = JSON.parse(JSON.stringify(person)) ;
+        deepPerson.address.city = "Taichung";
+        console.log(deepPerson);
+        console.log(person);
+
+
+    </script>
+
+</body>
+</html>
