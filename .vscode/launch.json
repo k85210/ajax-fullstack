@@ -6,7 +6,8 @@
             "name": "BackendApplication",
             "request": "launch",
             "mainClass": "com.eeit.ajax.backend.BackendApplication", 
-            "projectName": "backend"
+            "projectName": "backend",
+            "vmArgs": "-Dspring.profile.active=mssql"
         },
     ]
 }
