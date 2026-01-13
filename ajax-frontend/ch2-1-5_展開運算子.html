@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    
     <script>
         const arr1 = [1, 2, 3, 4, 5];
         const arr2 = [6, 7, 8, 9, 10];
@@ -37,8 +36,10 @@
         console.log(deepPerson);
         console.log(person);
 
-
+        // structuredClone，可複製Set、Map(現在推薦使用的深層複製方法)
+        const clonePerson = structuredClone(person);
+        clonePerson.address.city = "Tainan";
+        console.log(clonePerson);
     </script>
-
 </body>
 </html>
