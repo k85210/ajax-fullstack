@@ -19,6 +19,12 @@
         // 具名匯入(可自定義名稱)
         import { getRamdonNumber as myRamd } from "./my_module/math.js";
         console.log(myRamd());
+
+        // 標準具名匯入
+        import { useMemberStore } from "my_module/store.js";
+        const memberStore = useMemberStore();
+        console.log(memberStore);
+
     </script>
 </body>
 </html>

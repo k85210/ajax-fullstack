@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const doSomething = (msg) => {
+        //     const randomNumber = Math.random() * 1000;
+
+        //     // 在 0~999毫秒內列印訊息(非同步程式)
+        //     setTimeout(() => {
+        //         console.log(msg);
+        //     }, randomNumber);
+        // }
+
+        // // 結帳流程
+        // doSomething("1. get user");
+        // doSomething("2. get cart");
+        // doSomething("3. checkout");
+        // doSomething("4. pay");
+        // doSomething("5. confirm");
+
+        // // callback hell(不容易維護，已少用)
+        // const doSomethingCallback = (msg, callback) => {
+        //     const randomNumber = Math.random() * 1000;
+
+        //     // 在 0~999毫秒內列印訊息(非同步程式)
+        //     setTimeout(() => {
+        //         console.log(msg);
+        //         callback();
+        //     }, randomNumber);
+        // }
+        // doSomethingCallback("1. get user", () => {
+        //     doSomethingCallback("2. get cart", () => {
+        //         doSomethingCallback("3. checkout", () => {
+        //             doSomethingCallback("4. pay", () => {
+        //                 doSomethingCallback("5. confirm", () => {
+        //                     console.log("done");
+        //                 })
+        //             })
+        //         })
+        //     })
+        // });
+
+        // ES6 的 Promise (承諾物件: 只要告至成功、失敗分別要做甚麼)
+        const doSomethingPromise = (msg) => {
+            return new Promise((resolve, reject) => {
+                const randomNumber = Math.random() * 1000;
+                setTimeout(() => {
+                console.log(msg);
+                resolve({msg: "success", data: {name: "Alice"}, status: 200});
+                }, randomNumber);
+            });
+        }
+
+        // doSomethingPromise("1. get user")
+        //     .then(msg => doSomethingPromise("2. get cart"))
+        //     .then(msg => doSomethingPromise("3. checkout"))
+        //     .then(msg => doSomethingPromise("4. pay"))
+        //     .then(msg => doSomethingPromise("5. confirm")) // Removed semicolon here
+        //     .then(msg => console.log("done"))
+        //     .catch(err => console.log("error", err))
+
+
+        // async: 將函式變成非同步函示 / await: 強制等待非同步的結果
+        const doSomethingAsync = async () => {
+            const result = await doSomethingPromise("1. get user");
+            console.log("------------------", result);
+            await doSomethingPromise("2. get cart");
+            await doSomethingPromise("3. checkout");
+            await doSomethingPromise("4. pay");
+            await doSomethingPromise("5. confirm");
+            console.log("done");
+        }
+        doSomethingAsync();
+        
+
+    </script>
+</body>
+</html>
