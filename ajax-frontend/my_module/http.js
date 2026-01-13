@@ -1,15 +1,15 @@
 // 封裝axios
 
-import axios from "./axios";
+import axios from "./axios.js";
 // 效果和上面的相同
 // import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/esm/axios.js";
 
-axios.create(
+const http = axios.create(
     {
-        baseURL: "https://jsonplaceholder.typicode.com/users",
+        baseURL: "https://jsonplaceholder.typicode.com",
         timeout: 5000
     }
-)
+);
 
 // 請求前進行攔截
 http.interceptors.request.use(

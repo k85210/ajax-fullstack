@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>取得所有會員的 api</h1>
+    <h2>GET: /members</h2>
+    <h2>GET: /api/members</h2>
+    <h2>GET: /api/v1/members</h2>
+
+    <h1>刪除 id 是 "P001" 商品的 api</h1>
+    <h2>前端 DELETE: /api/products/P001</h2>
+    <h2>後端 @DeleteMapping("/products/{id}")</h2>
+
+    <h1>取得1號會員所有訂單的 api</h1>
+    <h2>前端 GET: /api/members/1/orders</h2>
+    <h2>後端 @GetMapping("/members/{id}/orders")</h2>
+
+
+    <h1>登入的 api</h1>
+    <h2>POST: /api/auth/login</h2>    
+    <h2>POST: /api/auth/session</h2>    
+
+    <h1>結帳的 api</h1>
+    <h2>POST: /api/orders</h2>
+    <h2>POST: /api/payments</h2>
+</body>
+</html>

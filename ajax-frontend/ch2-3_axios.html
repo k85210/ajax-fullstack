@@ -11,16 +11,22 @@
     <br>
     <div id="data_home"></div>
     <script type="module">
-        import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/esm/axios.js";
-        axios.get("https://jsonplaceholder.typicode.com/users")
-            .then(resp => {
-                console.log(resp);
-                document.querySelector("#resp_home").append(JSON.stringify(resp));
+        // import axios from "https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/esm/axios.js";
+        // axios.get("https://jsonplaceholder.typicode.com/users")
+        //     .then(resp => {
+        //         console.log(resp);
+        //         document.querySelector("#resp_home").append(JSON.stringify(resp));
 
-                console.log(resp.data);
-                document.querySelector("#data_home").append(JSON.stringify(resp.data));
-            })
-            .catch(err => console.log(err));
+        //         console.log(resp.data);
+        //         document.querySelector("#data_home").append(JSON.stringify(resp.data));
+        //     })
+        //     .catch(err => console.log(err));
+        
+        // 使用封裝好的 axios
+        import api from "./my_module/http.js";
+        api.get("/users").then(data => {
+            console.log("封裝好的", data);
+        });
     </script>
 </body>
 </html>
