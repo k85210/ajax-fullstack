@@ -7,7 +7,8 @@
             "request": "launch",
             "mainClass": "com.eeit.ajax.backend.BackendApplication", 
             "projectName": "backend",
-            "vmArgs": "-Dspring.profile.active=mssql"
+            "vmArgs": "-Dspring.profiles.active=mssql" // 標準啟動方式
+            // "args": "--spring.config.name=application,application-mssql,server" // 強制指定名稱為非標準名稱
         },
     ]
 }
