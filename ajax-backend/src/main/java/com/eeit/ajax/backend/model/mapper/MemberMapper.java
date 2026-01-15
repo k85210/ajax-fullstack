@@ -1,24 +1,19 @@
 package com.eeit.ajax.backend.model.mapper;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import com.eeit.ajax.backend.model.dto.MemberCreateDto;
 import com.eeit.ajax.backend.model.dto.MemberResponseDto;
 import com.eeit.ajax.backend.model.entity.Member;
 
-@Component
-public class MemberMapper {
+@Mapper(componentModel = "spring")
+public interface MemberMapper {
 
-    public MemberResponseDto toDto(Member entity) {
-        MemberResponseDto dto = new MemberResponseDto();
-        BeanUtils.copyProperties(entity, dto);
-        return dto;
-    }
+    MemberResponseDto toDto(Member entity);
 
-    public Member toEntity(MemberResponseDto dto) {
-        Member entity = new Member();
-        BeanUtils.copyProperties(dto, entity);
-        return entity;
-    }
+    @Mapping(target = "memberId", ignore = true)
+    @Mapping(target = "memberPhoto", ignore = true)
+    Member toEntity(MemberCreateDto dto);
 
 }

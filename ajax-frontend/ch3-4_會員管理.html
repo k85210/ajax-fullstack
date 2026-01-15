@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>會員管理</title>
     <style>
-        table, td {
+        table,
+        td {
             border: 1px solid black;
             text-align: center;
         }
+
         td {
             width: 100px;
         }
+
         img {
             width: 100px;
         }
+
+        div {
+            margin-top: 5px;
+        }
+
         .create_div {
             zoom: 1.5;
         }
     </style>
 </head>
+
 <body>
     <h1>新增會員</h1>
     <div class="create_div">
-        <div>姓名: <input type="text" id="memberName"></div>
-        <div><label>管理員: <input type="checkbox" id="is_admin"></label></div>
-        <div>email: <input type="text" id="email"></div>
-        <div>照片: <input type="file" id="photo"></div>
-        <div><button id="create_btn">新增(僅新增文字)</button></div>
-        <div><button id="create_btn_with_img">新增(包含圖片)</button></div>
+        <div>姓名: <input type="text" id="member_name"> </div>
+        <div> <label>管理員 <input type="checkbox" id="is_admin"></label> </div>
+        <div>email: <input type="text" id="email"> </div>
+        <div>大頭貼: <input type="file" id="photo"> </div>
+        <div> <button id="create_btn">新增(僅新增文字)</button> </div>
+        <div> <button id="create_btn_with_img">新增(包含圖片)</button> </div>
     </div>
 
-    <script type="module">
-        import http from "./my_module/http.js";
 
-        const memberName = document.querySelector("#memberName");
+    <script type="module">
+        import http from "./my_module/http.js"
+
+        const memberName = document.querySelector("#member_name");
         const isAdmin = document.querySelector("#is_admin");
         const email = document.querySelector("#email");
         const photo = document.querySelector("#photo");
         const createBtn = document.querySelector("#create_btn");
         const createBtnWithImg = document.querySelector("#create_btn_with_img");
-        
+
         // 僅新增文字
         createBtn.addEventListener("click", async () => {
             const member = {
@@ -48,45 +59,71 @@
                 isAdmin: isAdmin.checked,
                 email: email.value
             }
-            // RESTful 重點，送出請求且附帶request body
-            const newMember = await http.post("/api/members", member);
-            console.log(newMember);
 
-            // 頁面渲染
+            // 這裡是 restful 這堂課的重點，如何送出請求且附帶 request body
+            const newMember = await http.post("/api/members", member)
+
+            // 在新增成功後，渲染畫面(但這不是重點，未來為由 vue 完成畫面渲染)
             const dataHome = document.querySelector("#data_home");
             const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${newMember.memberId}</td>
-                <td>${newMember.memberName}</td>
-                <td>${newMember.isAdmin ? "Y" : "N"}</td>
-                <td>${newMember.email}</td>
-                <td><img src="${'data:image/png;base64,' + newMember.memberPhoto}"></td>
-                <td><button data-action>刪除</button></td>
-            `;
-            dataHome.append(tr);
-        });
+            tr.innerHTML =
+                `
+                    <td>${newMember.memberId}</td>
+                    <td>${newMember.memberName}</td>
+                    <td>${newMember.isAdmin ? "是" : "否"}</td>
+                    <td>${newMember.email}</td>
+                    <td><img src="${'data:image/png;base64,' + newMember.memberPhoto}"></td>
+                    <td><button data-action="delete">刪除</button></td>
+                `
+            dataHome.appendChild(tr);
+        })
 
-        
+        // 新增文字 + 圖片
+        createBtnWithImg.addEventListener("click", async () => {
+            const fd = new FormData();
+            fd.append("memberName", memberName.value);
+            fd.append("isAdmin", isAdmin.checked);
+            fd.append("email", email.value);
+            fd.append("photo", photo.files[0]);
 
+            const newMember = await http.post("/api/members/image", fd)
+
+            // 在新增成功後，渲染畫面(但這不是重點，未來為由 vue 完成畫面渲染)
+            const dataHome = document.querySelector("#data_home");
+            const tr = document.createElement("tr");
+            tr.innerHTML =
+                `
+                    <td>${newMember.memberId}</td>
+                    <td>${newMember.memberName}</td>
+                    <td>${newMember.isAdmin ? "是" : "否"}</td>
+                    <td>${newMember.email}</td>
+                    <td><img src="${'data:image/png;base64,' + newMember.memberPhoto}"></td>
+                    <td><button data-action="delete">刪除</button></td>
+                `
+            dataHome.appendChild(tr);
+
+        })
 
     </script>
 
+    <hr>
     <table>
         <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>會員名稱</td>
-                    <td>是否為管理員</td>
-                    <td>Email</td>
-                    <td>照片</td>
-                    <td>操作</td>
-                </tr>
+            <tr>
+                <td>ID</td>
+                <td>會員名稱</td>
+                <td>是否為管理員</td>
+                <td>Email</td>
+                <td>大頭貼</td>
+                <td>操作</td>
+            </tr>
         </thead>
+
         <tbody id="data_home">
             <tr>
                 <td>1</td>
                 <td>Alice</td>
-                <td>Y</td>
+                <td>是</td>
                 <td>AAA</td>
                 <td>AAA</td>
                 <td><button>刪除</button></td>
@@ -95,57 +132,65 @@
     </table>
 
     <script type="module">
-        import http from "./my_module/http.js";
+        import http from "./my_module/http.js"
 
         const dataHome = document.querySelector("#data_home");
 
         const getAllMembers = async () => {
+            // 在 restful 這堂課要懂得部分
             const members = await http.get("/api/members");
-            
-            // 未來會使用vue，把資料渲染到畫面
+
+            // 未來會被 vue 取代，vue 幫你把資料渲染到畫面
             let outputHtml = "";
             for (let m of members) {
-                outputHtml += 
+                outputHtml +=
                     `
                         <tr data-id="${m.memberId}">
                             <td>${m.memberId}</td>
                             <td>${m.memberName}</td>
-                            <td>${m.isAdmin ? "Y" : "N"}</td>
+                            <td>${m.isAdmin ? "是" : "否"}</td>
                             <td>${m.email}</td>
                             <td><img src="${'data:image/png;base64,' + m.memberPhoto}"></td>
                             <td><button data-action="delete">刪除</button></td>
                         </tr>
-                    `    
+                    `
             }
+
             dataHome.innerHTML = outputHtml;
         }
-        getAllMembers();
-            
-        const deleteMemberById = async (memberId) => {
-            const doIt = confirm("確定要刪除嗎?");
-            if (!doIt) return;
-            
-            try {
-                // 打刪除的API (課堂重點)
-                await http.delete(`/api/members/${memberId}`);
 
-                // 刪除成功後更新畫面(未來由vue處理)
+        getAllMembers();
+
+
+        // 刪除會員的方法(使用者點擊畫面觸發)
+        const deleteMemberById = async (memberId) => {
+            const doIt = confirm("確定要刪除嗎?")
+
+            if (!doIt) {
+                return;
+            }
+
+            try {
+                // 打刪除的 API，restful 的課堂重點
+                await http.delete(`/api/members/${memberId}`)
+
+                // 刪除成功後，更新畫面(未來由 vue 處理)
                 document.querySelector(`[data-id="${memberId}"]`).remove();
-            } catch (err) {
-                alert("刪除失敗" + err.message);
+            } catch (error) {
+                alert("刪除失敗:" + error.message)
             }
         }
 
+        // 對所有元素進行刪除功能綁定
         setTimeout(() => {
             document.querySelectorAll("[data-action='delete']").forEach(
-                btn => btn.addEventListener("click", () => 
+                btn => btn.addEventListener("click", () =>
                     deleteMemberById(btn.parentElement.parentElement.dataset.id)
                 )
             )
         }, 100);
 
-            
-
     </script>
 </body>
+
 </html>
