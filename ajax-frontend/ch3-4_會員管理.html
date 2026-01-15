@@ -15,9 +15,62 @@
         img {
             width: 100px;
         }
+        .create_div {
+            zoom: 1.5;
+        }
     </style>
 </head>
 <body>
+    <h1>新增會員</h1>
+    <div class="create_div">
+        <div>姓名: <input type="text" id="memberName"></div>
+        <div><label>管理員: <input type="checkbox" id="is_admin"></label></div>
+        <div>email: <input type="text" id="email"></div>
+        <div>照片: <input type="file" id="photo"></div>
+        <div><button id="create_btn">新增(僅新增文字)</button></div>
+        <div><button id="create_btn_with_img">新增(包含圖片)</button></div>
+    </div>
+
+    <script type="module">
+        import http from "./my_module/http.js";
+
+        const memberName = document.querySelector("#memberName");
+        const isAdmin = document.querySelector("#is_admin");
+        const email = document.querySelector("#email");
+        const photo = document.querySelector("#photo");
+        const createBtn = document.querySelector("#create_btn");
+        const createBtnWithImg = document.querySelector("#create_btn_with_img");
+        
+        // 僅新增文字
+        createBtn.addEventListener("click", async () => {
+            const member = {
+                memberName: memberName.value,
+                isAdmin: isAdmin.checked,
+                email: email.value
+            }
+            // RESTful 重點，送出請求且附帶request body
+            const newMember = await http.post("/api/members", member);
+            console.log(newMember);
+
+            // 頁面渲染
+            const dataHome = document.querySelector("#data_home");
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${newMember.memberId}</td>
+                <td>${newMember.memberName}</td>
+                <td>${newMember.isAdmin ? "Y" : "N"}</td>
+                <td>${newMember.email}</td>
+                <td><img src="${'data:image/png;base64,' + newMember.memberPhoto}"></td>
+                <td><button data-action>刪除</button></td>
+            `;
+            dataHome.append(tr);
+        });
+
+        
+
+
+    </script>
+
     <table>
         <thead>
                 <tr>
