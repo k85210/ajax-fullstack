@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        td {
+            width: 100px;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>會員名稱</td>
+                    <td>是否為管理員</td>
+                    <td>Email</td>
+                    <td>照片</td>
+                    <td>操作</td>
+                </tr>
+        </thead>
+        <tbody id="data_home">
+            <tr>
+                <td>1</td>
+                <td>Alice</td>
+                <td>Y</td>
+                <td>AAA</td>
+                <td>AAA</td>
+                <td><button>刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="module">
+        import http from "./my_module/http.js";
+
+        const dataHome = document.querySelector("#data_home");
+
+        const getAllMembers = async () => {
+            const members = await http.get("/api/members");
+            
+            // 未來會使用vue，把資料渲染到畫面
+            let outputHtml = "";
+            for (let m of members) {
+                outputHtml += 
+                    `
+                        <tr data-id="${m.memberId}">
+                            <td>${m.memberId}</td>
+                            <td>${m.memberName}</td>
+                            <td>${m.isAdmin ? "Y" : "N"}</td>
+                            <td>${m.email}</td>
+                            <td><img src="${'data:image/png;base64,' + m.memberPhoto}"></td>
+                            <td><button data-action="delete">刪除</button></td>
+                        </tr>
+                    `    
+            }
+            dataHome.innerHTML = outputHtml;
+        }
+        getAllMembers();
+            
+        const deleteMemberById = async (memberId) => {
+            const doIt = confirm("確定要刪除嗎?");
+            if (!doIt) return;
+            
+            try {
+                // 打刪除的API (課堂重點)
+                await http.delete(`/api/members/${memberId}`);
+
+                // 刪除成功後更新畫面(未來由vue處理)
+                document.querySelector(`[data-id="${memberId}"]`).remove();
+            } catch (err) {
+                alert("刪除失敗" + err.message);
+            }
+        }
+
+        setTimeout(() => {
+            document.querySelectorAll("[data-action='delete']").forEach(
+                btn => btn.addEventListener("click", () => 
+                    deleteMemberById(btn.parentElement.parentElement.dataset.id)
+                )
+            )
+        }, 100);
+
+            
+
+    </script>
+</body>
+</html>

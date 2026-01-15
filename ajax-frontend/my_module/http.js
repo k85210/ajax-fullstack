@@ -6,7 +6,8 @@ import axios from "./axios.js";
 
 const http = axios.create(
     {
-        baseURL: "https://jsonplaceholder.typicode.com",
+        // baseURL: "https://jsonplaceholder.typicode.com",
+        baseURL: "http://localhost:8080",
         timeout: 5000
     }
 );
