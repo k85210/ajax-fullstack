@@ -58,6 +58,27 @@
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
+<!--  === JWT 工具庫 (jjwt) ===  -->
+<!--  jjwt 介面  -->
+<dependency>
+<groupId>io.jsonwebtoken</groupId>
+<artifactId>jjwt-api</artifactId>
+<version>0.13.0</version>
+</dependency>
+<!--  jjwt 實作  -->
+<dependency>
+<groupId>io.jsonwebtoken</groupId>
+<artifactId>jjwt-impl</artifactId>
+<version>0.13.0</version>
+<scope>runtime</scope>
+</dependency>
+<!--  讓 jjwt 使用 Jackson 進行 JSON 解析(Springboot 預設使用 Jackson)  -->
+<dependency>
+<groupId>io.jsonwebtoken</groupId>
+<artifactId>jjwt-jackson</artifactId>
+<version>0.13.0</version>
+<scope>runtime</scope>
+</dependency>
 </dependencies>
 <build>
 <plugins>
